@@ -93,11 +93,6 @@ module Jonlives
         output({:results => result_count, :rows => result_items})
       else
         ui.msg "#{result_count} Nodes updated"
-        ui.msg("\n")
-        ui.msg("The following nodes have been updated:\n")
-        result_items.each do |item|
-          output(item.name)
-        end
       end
 
     end
