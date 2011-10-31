@@ -79,6 +79,7 @@ module Jonlives
           if formatted_item_node.respond_to?(:has_key?) && !formatted_item_node.has_key?('id')
             formatted_item_node['id'] = node_item.has_key?('id') ? node_item['id'] : node_item.name
           end
+          ui.msg("Updated #{formatted_item_node.name}...")
           result_items << formatted_item_node
           result_count += 1
         end
