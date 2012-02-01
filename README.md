@@ -2,6 +2,17 @@
 
 A plugin for Chef::Knife which lets you move all nodes in one environment into another.
 
+## SCRIPT INSTALL
+
+Copy *.rb script from lib/chef/knife to your ~/.chef/plugins/knife directory.
+
+## GEM INSTALL
+knife-bulkchangeenvironment is available on rubygems.org - if you have that source in your gemrc, you can simply use:
+
+````
+gem install knife-bulkchangeenvironment
+````
+
 ## Preface
 
 Searches for all nodes in a particular environment and moves them to another
