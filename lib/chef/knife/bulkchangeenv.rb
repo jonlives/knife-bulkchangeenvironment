@@ -31,8 +31,7 @@ module KnifeBulkChangeEnv
 
       searcher = Chef::Search::Query.new
       result = searcher.search(:environment, "name:#{@old_env}")
-      
-      knife_search = Chef::Knife::Search.new
+
       env = result.first.first
       if env.nil?
         puts "Could not find an environment named #{@old_env}. Can't update nodes in a non-existant environment!"
@@ -46,8 +45,7 @@ module KnifeBulkChangeEnv
 
       searcher = Chef::Search::Query.new
       result = searcher.search(:environment, "name:#{@new_env}")
-      
-      knife_search = Chef::Knife::Search.new
+
       env = result.first.first
       if env.nil?
         puts "Could not find an environment named #{@new_env}. Please create it before trying to put nodes in it!"
@@ -55,10 +53,6 @@ module KnifeBulkChangeEnv
       else
         puts "Found!\n"
       end
-
-      #puts "Setting environment to #{@environment}"
-      #node.chef_environment(@environment)
-      #node.save
       
       q_nodes = Chef::Search::Query.new
       node_query = "chef_environment:#{@old_env}"
@@ -77,7 +71,7 @@ module KnifeBulkChangeEnv
           node_item.save
           formatted_item_node = format_for_display(node_item)
           if formatted_item_node.respond_to?(:has_key?) && !formatted_item_node.has_key?('id')
-            formatted_item_node['id'] = node_item.has_key?('id') ? node_item['id'] : node_item.name
+            formatted_item_node.normal['id'] = node_item.has_key?('id') ? node_item['id'] : node_item.name
           end
           ui.msg("Updated #{formatted_item_node.name}...")
           result_items << formatted_item_node
