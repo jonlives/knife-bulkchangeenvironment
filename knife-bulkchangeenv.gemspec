@@ -13,8 +13,8 @@ Gem::Specification.new do |s|
   ## If your rubyforge_project name is different, then edit it and comment out
   ## the sub! line in the Rakefile
   s.name              = 'knife-bulkchangeenvironment'
-  s.version           = '0.1.1'
-  s.date              = '2013-11-22'
+  s.version           = '0.2.0'
+  s.date              = '2014-09-22'
   s.rubyforge_project = 'knife-bulkchangeenvironment'
 
   ## Make sure your summary is short. The description may be as long
@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   ## List the primary authors. If there are a bunch of authors, it's probably
   ## better to set the email to an email list or something. If you don't have
   ## a custom homepage, consider using your GitHub URL or the like.
-  s.authors  = ["Jon Cowie"]
+  s.authors  = ["Jon Cowie","Sean Nolen"]
   s.email    = 'jonlives@gmail.com'
   s.homepage = 'https://github.com/jonlives/knife-bulkchangeenvironment'
 
