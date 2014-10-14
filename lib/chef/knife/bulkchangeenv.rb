@@ -14,7 +14,7 @@ module KnifeBulkChangeEnv
       require 'chef/knife/search'
     end
 
-    banner "knife node bulk_change_environment OLDENVIRONMENT NEWENVIRONMENT"
+    banner "knife node bulk_change_environment OLDENVIRONMENT NEWENVIRONMENT [QUERY]"
 
     def run
       unless @old_env = name_args[0]
@@ -26,7 +26,13 @@ module KnifeBulkChangeEnv
         ui.error "You need to specify an environment to update to"
         exit 1
       end
-      
+
+      unless @query_string = name_args[2]
+        ui.msg "No additional search query given"
+      else
+        ui.msg "Using additional search query: #{@query_string}"
+      end
+
       puts "Checking for an environment called #{@old_env} to update from..."
 
       searcher = Chef::Search::Query.new
@@ -39,8 +45,8 @@ module KnifeBulkChangeEnv
       else
         puts "Found!\n"
       end
-      
-        
+
+
       puts "Checking for an environment called #{@new_env} to update to..."
 
       searcher = Chef::Search::Query.new
@@ -53,20 +59,23 @@ module KnifeBulkChangeEnv
       else
         puts "Found!\n"
       end
-      
+
       q_nodes = Chef::Search::Query.new
       node_query = "chef_environment:#{@old_env}"
+      if @query_string
+        node_query += " AND (#{@query_string})"
+      end
       query_nodes = URI.escape(node_query,
                          Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
 
       result_items = []
       result_count = 0
 
-      ui.msg("\nFinding all nodes in environment #{@old_env} and moving them to environment #{@new_env}...\n")
-      
+      ui.msg("\nFinding all nodes in environment #{@old_env}#{" matching '" + @query_string + "'" if @query_string} and moving them to environment #{@new_env}...\n")
+
       begin
         q_nodes.search('node', query_nodes) do |node_item|
-          
+
           node_item.chef_environment(@new_env)
           node_item.save
           formatted_item_node = format_for_display(node_item)
