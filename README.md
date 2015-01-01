@@ -14,8 +14,9 @@ gem install knife-bulkchangeenvironment
 Searches for all nodes in a particular environment and moves them to another
 
 ## What it does
-
+```
 knife node bulk_change_environment "_default" development
+```
 will move all nodes in the default environment (in quotes because of the underscore) into the development environment.
 
 ## Notes
